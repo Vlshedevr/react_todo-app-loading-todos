@@ -1,8 +1,9 @@
 import cn from 'classnames';
 import { useEffect, useRef } from 'react';
+import { TypeErrMes } from '../types/Error';
 
 type Props = {
-  errorMessage: string | null;
+  errorMessage: TypeErrMes | null;
   onDeleteErrorMessage: () => void;
 };
 
@@ -40,18 +41,7 @@ export const ErrorMessage = ({ errorMessage, onDeleteErrorMessage }: Props) => {
         className="delete"
         onClick={() => onDeleteErrorMessage()}
       />
-      {/* show only one message at a time */}
       {errorMessage}
     </div>
   );
 };
-
-// Unable to load todos
-// <br />
-// Title should not be empty
-// <br />
-// Unable to add a todo
-// <br />
-// Unable to delete a todo
-// <br />
-// Unable to update a todo

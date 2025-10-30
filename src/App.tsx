@@ -8,18 +8,15 @@ import { Todo } from './types/Todo';
 import { getTodos } from './api/todos';
 import { FilterBy } from './types/Filter';
 import { AddBar } from './components/AddBar';
+import { TypeErrMes } from './types/Error';
 
 export const App: React.FC = () => {
   const [todos, setTodos] = useState<Todo[]>([]);
   const [filter, setFilter] = useState<FilterBy>(FilterBy.All);
-  const [errorMessage, setErrorMessage] = useState<string | null>(null);
+  const [errorMessage, setErrorMessage] = useState<TypeErrMes | null>(null);
 
   const activeTodosCount = todos.filter(todo => !todo.completed).length;
   const hasCompleteTodos = todos.some(todo => todo.completed);
-
-  const handleFilterChange = (filterBy: FilterBy) => {
-    setFilter(filterBy);
-  };
 
   const onDeleteErrorMessage = useCallback(() => {
     setErrorMessage(null);
@@ -41,7 +38,7 @@ export const App: React.FC = () => {
 
     getTodos()
       .then(setTodos)
-      .catch(() => setErrorMessage('Unable to load todos'));
+      .catch(() => setErrorMessage(TypeErrMes.UnableLoad));
   }, []);
 
   return (
@@ -58,7 +55,7 @@ export const App: React.FC = () => {
             hasCompleteTodos={hasCompleteTodos}
             activeTodosCount={activeTodosCount}
             selectFilter={filter}
-            onFilter={handleFilterChange}
+            onFilter={setFilter}
           />
         )}
       </div>

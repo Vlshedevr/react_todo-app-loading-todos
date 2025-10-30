@@ -14,46 +14,29 @@ export const TodoFilter = ({
   selectFilter,
   onFilter,
 }: Props) => {
+  const allFilterArr = Object.values(FilterBy);
+
   return (
-    <footer className="todoapp__footer hidden" data-cy="Footer">
+    <footer className="todoapp__footer" data-cy="Footer">
       <span className="todo-count" data-cy="TodosCounter">
         {activeTodosCount} items left
       </span>
 
       {/* Active link should have the 'selected' class */}
       <nav className="filter" data-cy="Filter">
-        <a
-          href="#/"
-          className={cn('filter__link', {
-            selected: selectFilter === FilterBy.All,
-          })}
-          data-cy="FilterLinkAll"
-          onClick={() => onFilter(FilterBy.All)}
-        >
-          All
-        </a>
-
-        <a
-          href="#/active"
-          className={cn('filter__link', {
-            selected: selectFilter === FilterBy.Active,
-          })}
-          data-cy="FilterLinkActive"
-          onClick={() => onFilter(FilterBy.Active)}
-        >
-          Active
-        </a>
-
-        <a
-          href="#/completed"
-          className={cn('filter__link', {
-            selected: selectFilter === FilterBy.Completed,
-          })}
-          data-cy="FilterLinkCompleted"
-          onClick={() => onFilter(FilterBy.Completed)}
-        >
-          Completed
-        </a>
+        {allFilterArr.map(filterName => (
+          <a
+            key={filterName}
+            href={`#/${filterName}`}
+            className={cn('filter__link', {
+              selected: selectFilter === filterName,
+            })}
+            data-cy="FilterLinkAll"
+            onClick={() => onFilter(filterName)}
+          >
+            {filterName}
+          </a>
+        ))}
       </nav>
 
       <button
