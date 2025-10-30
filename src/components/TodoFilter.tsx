@@ -31,7 +31,7 @@ export const TodoFilter = ({
             className={cn('filter__link', {
               selected: selectFilter === filterName,
             })}
-            data-cy="FilterLinkAll"
+            data-cy={`FilterLink${filterName}`}
             onClick={() => onFilter(filterName)}
           >
             {filterName}
